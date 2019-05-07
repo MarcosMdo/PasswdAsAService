@@ -110,7 +110,7 @@ def getUserGroupsByUid(uid):
         while content:
             registration = content.split(':')
 
-            members = group_info[3].split(',')
+            members = registration[3].split(',')
             members[-1] = members[-1].rstrip()
 
             if username in members:
@@ -122,7 +122,7 @@ def getUserGroupsByUid(uid):
         return jsonify(result)
 
 # Return a list of all groups on the system, defined by /etc/group
-@app.route("/groups")
+@app.route("/groups", methods=['GET'])
 def getAllGroups():
     result = []
     with open(os.path.dirname(app.root_path) + '/group', 'r') as groups:
@@ -134,15 +134,17 @@ def getAllGroups():
             json_data = parseToJson.parseGroup(registration)
             result.append(json_data)
 
-        content = groups.readline()
+            content = groups.readline()
 
     return jsonify(result)
 
 # Return a list of groups matching all of the specified query fields.
-@app.route("/group/query")
+@app.route("/groups/query")
 def getGroupsByQuery():
     args = request.args
-    parse.urlencode(args)
+    parse.urlencode(args, doseq=True)
+    for i in args.items():
+        print(i, file=sys.stderr)
     result = []
     flag = True
 
@@ -153,15 +155,22 @@ def getGroupsByQuery():
             flag = True
             registration = content.split(':')
             json_data = parseToJson.parseGroup(registration)
-
+            members = []
             for key, value in args.items():
-                if str(json_data[key]) != str(value):
+                print("Value is: " + value, file=sys.stderr)
+                if key == 'member':
+                    members.append(value)
+                elif str(json_data[key]) != str(value):
+                    flag = False
+            for m in members:
+                print(m, file=sys.stderr)
+                if m not in json_data['members']:
                     flag = False
             if flag:
                 print("appending data.", file=sys.stderr)
                 result.append(json_data)
 
-            content = users.readline()
+            content = groups.readline()
 
     return jsonify(result)
 

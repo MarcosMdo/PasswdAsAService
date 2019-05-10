@@ -2,9 +2,13 @@ version: '3.4'
 
 services:
   password-service:
-    build: .
+    build: 
+      context: .
+      args: 
+        PASSWD: /etc/passwd
+        GROUP: /etc/group
     volumes:
       - .:/usr/src/app
-      - /etc:/usr/src/app/etc
+      - ./test:/usr/src/app/test
     ports:
       - 8080:80

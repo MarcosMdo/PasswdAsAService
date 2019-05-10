@@ -9,6 +9,6 @@ services:
         GROUP: /etc/group
     volumes:
       - .:/usr/src/app
-      - ./test:/usr/src/app/test
+      - ./etc:/usr/src/app/etc
     ports:
       - 8080:80

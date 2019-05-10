@@ -22,9 +22,10 @@ def index():
 def getAllUsers():
     result = []
 
-    with open(os.path.dirname(app.root_path) + '/passwd', 'r') as users:
+    with open(os.path.dirname(app.root_path) + '/etc/passwd', 'r') as users:
         content = users.readline()
-
+        while content[0] == '#':
+            content = users.readline()
         while content:
             registration = content.split(':')
             json_data = parseToJson.parseUser(registration) # helper function to parse JSON
@@ -43,9 +44,10 @@ def getUsersByQuery():
     result = []
     flag = True
 
-    with open(os.path.dirname(app.root_path) + '/passwd', 'r') as users:
+    with open(os.path.dirname(app.root_path) + '/etc/passwd', 'r') as users:
         content = users.readline()
-
+        while content[0] == '#':
+            content = users.readline()
         while content:
             flag = True
             registration = content.split(':')
@@ -65,9 +67,10 @@ def getUsersByQuery():
 # Get a user with a specific UID.
 @app.route("/users/<string:uid>", methods=['GET'])
 def getUserByUid(uid):
-    with open(os.path.dirname(app.root_path) + '/passwd', 'r') as users:
+    with open(os.path.dirname(app.root_path) + '/etc/passwd', 'r') as users:
         content = users.readline()
-
+        while content[0] == '#':
+            content = users.readline()
         while content:
             registration = content.split(':')
             user_uid = registration[2]
@@ -87,9 +90,10 @@ def getUserGroupsByUid(uid):
     username = None
     result = []
 
-    with open(os.path.dirname(app.root_path) + '/passwd', 'r') as users:
+    with open(os.path.dirname(app.root_path) + '/etc/passwd', 'r') as users:
         content = users.readline()
-
+        while content[0] == '#':
+            content = users.readline()
         while content:
             registration = content.split(':')
             user_uid = registration[2]
@@ -106,9 +110,10 @@ def getUserGroupsByUid(uid):
     if username is None:
         return jsonify([])
 
-    with open(os.path.dirname(app.root_path) + '/group', 'r') as groups:
+    with open(os.path.dirname(app.root_path) + '/etc/group', 'r') as groups:
         content = groups.readline()
-
+        while content[0] == '#':
+            content = groups.readline()
         while content:
             registration = content.split(':')
             
@@ -131,9 +136,10 @@ def getUserGroupsByUid(uid):
 def getAllGroups():
     result = []
 
-    with open(os.path.dirname(app.root_path) + '/group', 'r') as groups:
+    with open(os.path.dirname(app.root_path) + '/etc/group', 'r') as groups:
         content = groups.readline()
-
+        while content[0] == '#':
+            content = groups.readline()
         while content:
             registration = content.split(':')
             json_data = parseToJson.parseGroup(registration)
@@ -153,9 +159,10 @@ def getGroupsByQuery():
     result = []
     flag = True
 
-    with open(os.path.dirname(app.root_path) + '/group', 'r') as groups:
+    with open(os.path.dirname(app.root_path) + '/etc/group', 'r') as groups:
         content = groups.readline()
-
+        while content[0] == '#':
+            content = groups.readline()
         while content:
             # The flag boolean will be used to determine if the content is passable by all parameters.
             # Because there are multiple checks, we need to hold the flags boolean value for final appending.
@@ -194,9 +201,10 @@ def getGroupsByQuery():
 # Return a single group with <gid>. Return 404 if <gid> is not found.
 @app.route("/groups/<string:gid>", methods=['GET'])
 def getGroupbyGid(gid):
-    with open(os.path.dirname(app.root_path) + '/group', 'r') as groups:
+    with open(os.path.dirname(app.root_path) + '/etc/group', 'r') as groups:
         content = groups.readline()
-
+        while content[0] == '#':
+            content = groups.readline()
         while content:
             registration = content.split(':')
             user_gid = registration[2]

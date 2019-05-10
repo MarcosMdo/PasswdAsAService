@@ -11,7 +11,8 @@ To use default paths for user and group information:
 ```./initialize.sh ```
 
 To run with configured files:  
-``` ./initialize.sh $path_to_folder_containing_both_files ```
+``` ./initialize.sh $path_to_folder_containing_both_files ```  
+Note: the files must still be named ```passwd``` and ```group```
 
 ## Usage
 

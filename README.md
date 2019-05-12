@@ -20,7 +20,7 @@ To run the pytest tests on each route, run
 
 ## Usage
 
-### Get /users
+### Get ```/users```
 
 Return a list of all users on the system, as defined in the /etc/passwd file.
 
@@ -37,7 +37,7 @@ Return a list of all users on the system, as defined in the /etc/passwd file.
 ]
 ```
 
-### GET /users/query[?name=<nq>][&uid=<uq>][&gid=<gq>][&comment=<cq>][&home=<hq>][&shell=<sq]
+### GET ```/users/query[?name=<nq>][&uid=<uq>][&gid=<gq>][&comment=<cq>][&home=<hq>][&shell=<sq]```
 
 Where Parameter list values are:
     * name
@@ -61,7 +61,7 @@ Example Response:
   }
 ]
 ```
-### GET /users/<uid>
+### GET ```/users/<uid>```
 
 Return a single user with <uid>. Return 404 if <uid> not found.
 
@@ -71,7 +71,7 @@ Example Response:
   “name”: “dwoodlins”, “uid”: 1001, “gid”: 1001, “comment”: “”, “home”: “/home/dwoodlins”, “shell”: “/bin/false”
 }
 ```
-### GET /users/<uid>/groups
+### GET ```/users/<uid>/groups```
 
 Return all the groups for a given user.
 
@@ -84,7 +84,7 @@ Example Response:
 ]
 ```
 
-### GET /groups
+### GET ```/groups```
 
 Return a list of all groups on the system, defined by /etc/group.
 

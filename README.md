@@ -14,6 +14,10 @@ To run with configured files:
 ``` ./initialize.sh $path_to_folder_containing_both_files ```  
 Note: the files must still be named ```passwd``` and ```group```
 
+## Testing
+To run the pytest tests on each route, run  
+```./install.sh test```
+
 ## Usage
 
 ### Get /users

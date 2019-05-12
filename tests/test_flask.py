@@ -62,10 +62,8 @@ def test_get_group_query(client):
 
 def test_get_user_query(client):
   query_string = "?shell=" + urllib.parse.quote('/usr/bin/ksh', safe='')
-  print(query_string, file=sys.stderr)
   response = client.get('/users/query' + query_string)
   data = json.loads(response.data)
-  print(data, file=sys.stderr)
   assert data[2]['name'] == 'paul'
 
 def test_get_groups_from_user(client):

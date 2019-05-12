@@ -182,15 +182,20 @@ def configure_routes(app):
                     if key  == 'member':
                         for j in value:
                             members.append(j)
-                    elif json_data[key][0] != value[0]:
-                        flag = False
+                    elif key == 'gid':
+                        gid = ''.join(json_data[key]) # gid was being seperated into the 1st digit rather than the entire gid.
+                        if str(value[0]) != gid:
+                            flag = False
+                    elif key == 'name':
+                        name = ''.join(json_data[key])
+                        if value[0] != name:
+                            flag = False
                     
                 # Iterate all appended members from the query string and compare to all members found in this 
                 # content, or group found in the /etc/group file.
                 for m in members:
                     if m not in json_data['members']:
                         flag = False
-
                 if flag:
                     result.append(json_data)
 
